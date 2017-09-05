@@ -1,4 +1,4 @@
-FROM alpine
+FROM i386/alpine
 
 RUN apk update && apk add openssl wget ca-certificates bash bzip2 musl-dev gcc g++ make
 
