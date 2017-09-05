@@ -15,15 +15,24 @@
 # Only changes that have been committed to Git (at least locally,
 # not necessary reviewed and submitted to master) are included in the tree.
 
+# Exit if an error occurs
 set -e
 
-if [ "$GOOS" = "" -o "$GOARCH" = "" ]; then
-	echo "usage: GOOS=os GOARCH=arch ./bootstrap.bash" >&2
+echo $#
+if [ "$GOOS" = "" -o "$GOARCH" = "" -o "$#" -gt "1" ]; then
+	echo "usage: GOOS=os GOARCH=arch ./bootstrap.bash [output_dir]" >&2
 	exit 2
 fi
 
-unset GOROOT
+# Output dir for package
+if [ "$#" -eq "1" ]; then
+	pkgdir="$1"
+else
+	pkgdir="$PWD"
+fi
 
+
+unset GOROOT
 
 echo
 echo "#### Downloading"
@@ -73,8 +82,8 @@ echo Bootstrap toolchain for "$GOOS/$GOARCH" installed in "$(pwd)".
 
 echo Building package...
 cd ..
-tar zcf "go-${GOOS}-${GOARCH}-bootstrap.tar.gz" "go-${GOOS}-${GOARCH}-bootstrap"
-echo Package is in "/go-${GOOS}-${GOARCH}-bootstrap.tar.gz"
+tar zcf "${pkgdir}/${GOOS}-${GOARCH}-bootstrap.tar.gz" "go-${GOOS}-${GOARCH}-bootstrap"
+echo Package is in "${pkgdir}/go-${GOOS}-${GOARCH}-bootstrap.tar.gz"
 
 exit 0
 
