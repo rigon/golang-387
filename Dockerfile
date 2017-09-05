@@ -1,6 +1,7 @@
-FROM i386/alpine
+FROM i386/ubuntu
 
-RUN apk update && apk add openssl wget ca-certificates bash bzip2 musl-dev gcc g++ make
+# RUN apk update && apk add openssl wget ca-certificates bash musl-dev gcc g++ make
+RUN apt-get update && apt-get install wget gcc g++ make
 
 
 # Build boostrap
