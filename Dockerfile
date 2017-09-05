@@ -1,7 +1,7 @@
 FROM i386/ubuntu
 
 # RUN apk update && apk add openssl wget ca-certificates bash musl-dev gcc g++ make
-RUN apt-get update && apt-get install wget gcc g++ make
+RUN apt-get update && apt-get install -y wget gcc g++ make
 
 
 # Build boostrap
